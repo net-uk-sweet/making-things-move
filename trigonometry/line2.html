@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 boilerplate – all you really need…</title>
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="js/easeljs-0.7.0.min.js"></script>
+    <link rel="stylesheet" href="css/reset.css"></link>
+    <link rel="stylesheet" href="css/styles.css"></link>
+</head>
+
+<body>
+
+    <canvas id="easel-canvas"></canvas>
+
+    <script>
+        // 30 fps
+        // 6.283185307179586
+        // 60
+    	var stageWidth = 400, stageHeight = 300,
+    		spriteWidth = 10, spriteColor = '#fff',
+            startx = 0, starty = stageHeight / 2, xspeed = 10,
+    		angle = 0, speed = 0.1, range = 50,
+            waveSpeed = 0.1, startAngle = 0, manx = stageWidth / 2;
+
+    	var canvas = document.getElementById('easel-canvas');
+    	canvas.width = stageWidth;
+    	canvas.height = stageHeight;
+
+    	var stage = new createjs.Stage('easel-canvas');
+
+        var man = new createjs.Shape();
+        man.x = manx;
+        man.graphics.s(spriteColor).dc(0, 0, 10);
+
+    	var wave = new createjs.Shape();
+
+        stage.addChild(man);
+    	stage.addChild(wave);
+
+    	createjs.Ticker.addEventListener('tick', handleTick);
+        //handleTick();
+    	function handleTick(event) {
+            var x = startx;
+            man.y = getPosition(manx / xspeed * speed);
+            wave.graphics.c().s(spriteColor).mt(startx - 1, starty);
+            while (x < stageWidth + xspeed) {
+                wave.graphics.lt(x, getPosition(angle += speed));
+                x += xspeed;
+            }
+            angle = 0;
+            startAngle += waveSpeed;
+    		stage.update();
+    	}
+
+        function getPosition(angle) {
+            return starty + Math.sin(startAngle + angle) * range;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 boilerplate – all you really need…</title>
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="js/easeljs-0.7.0.min.js"></script>
+    <script src="js/Scene.js"></script>
+    <script src="js/SpaceShip.js"></script>
+
+    <link rel="stylesheet" href="css/reset.css"></link>
+    <link rel="stylesheet" href="css/styles.css"></link>
+</head>
+
+<body>
+
+    <canvas id="easel-canvas"></canvas>
+
+    <script>
+    	
+    	var stageWidth = 400, 
+            stageHeight = 300;
+
+    	var canvas = document.getElementById('easel-canvas');
+        canvas.width = stageWidth;
+        canvas.height = stageHeight;
+
+        // How are we supposed to handle mouse move in easel?
+        // How do I handle the offsets, should I want one?
+    	canvas.addEventListener('mousemove', handleMouseMove);
+    	
+    	var spaceShip = new SpaceShip();
+    	spaceShip.x = stageWidth / 2;
+    	spaceShip.y = stageHeight / 2;
+
+        var scene = new Scene();
+        scene.init();
+        scene.addChild(spaceShip);
+
+    	function handleMouseMove(event) {
+    		
+    		var dx = event.x - spaceShip.x,
+                dy = event.y - spaceShip.y,
+                radians = Math.atan2(dy, dx),
+                degrees = radians * 180 / Math.PI;
+
+    		spaceShip.rotation = degrees;
+    	}
+
+    </script>
+</body>
+</html>
