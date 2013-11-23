@@ -7,52 +7,45 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
+    <script src="js/Circle.js"></script>
+    <script src="js/Line.js"></script>
+
     <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
 </head>
 
 <body>
 
-    <canvas id="easel-canvas"></canvas>
+    <canvas id="easel-canvas" width="400" height="300"></canvas>
 
     <script>
-    	
-    	var stageWidth = 400, stageHeight = 300,
-    		spriteWidth = 10, spriteColor = '#fff',
-    		x = stageWidth / 2, y = stageHeight / 2,
-    		angle = 0, speed = 0.1, range = 50;
 
-    	var canvas = document.getElementById('easel-canvas');
-    	
-    	canvas.width = stageWidth;
-    	canvas.height = stageHeight;
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            ball = new Circle(),
+            line = new Line();
 
-    	var stage = new createjs.Stage('easel-canvas');
+        // Settings
+        var x = canvas.width / 2,
+            y = canvas.height / 2,
+            angle = 0, 
+            speed = 0.1, 
+            range = 50;
 
-    	var sprite = new createjs.Shape();
+        createjs.Ticker.addEventListener('tick', handleTick);
+        
+        stage.addChild(ball);
+        stage.addChild(line);
 
-    	sprite.x = x;
-    	sprite.y = y;
+        ball.x = x;
+        ball.y = line.y = y;
 
-    	sprite.graphics
-    		.s(spriteColor)
-    		.dc(0, 0, spriteWidth);
-    	
-    	var line = new createjs.Shape();
-
-    	line.graphics
-    		.mt(0, y)
-    		.s(spriteColor)
-    		.lt(stageWidth, y);
-
-    	stage.addChild(sprite);
-    	stage.addChild(line);
-
-    	createjs.Ticker.addEventListener('tick', handleTick);
+        line.x = 0;
 
     	function handleTick(event) {
     		angle += speed;
-    		sprite.y = y + Math.sin(angle) * range;
+    		ball.y = y + Math.sin(angle) * range;
     		stage.update();
     	}
 

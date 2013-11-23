@@ -7,42 +7,40 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
+
     <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
 </head>
 
 <body>
 
-    <canvas id="easel-canvas" class="interactive"></canvas>
+    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
 
     <script>
     	
-    	var stageWidth = 400, stageHeight = 300,
-    		spriteWidth = 10, spriteColor = '#fff',
-            x = 0, y = stageHeight / 2, xspeed = 1,
-    		angle = 0, speed = 0.1, range = 50;
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            wave = new createjs.Shape();
 
-    	var canvas = document.getElementById('easel-canvas');
+        // Settings
+        var x = 0, 
+            y = canvas.width / 2, 
+            xspeed = 1,
+    		angle = 0, 
+            speed = 0.1,
+            range = 50;
+
+        createjs.Ticker.addEventListener('tick', handleTick);
         canvas.addEventListener('click', handleClick);
-    	
-    	canvas.width = stageWidth;
-    	canvas.height = stageHeight;
 
-    	var stage = new createjs.Stage('easel-canvas');
+    	wave.graphics.s('#fff').mt(x, y);
 
-    	var sprite = new createjs.Shape();
-
-    	sprite.graphics
-    		.s(spriteColor)
-    		.mt(x, y);
-
-    	stage.addChild(sprite);
-
-    	createjs.Ticker.addEventListener('tick', handleTick);
+    	stage.addChild(wave);
 
     	function handleTick(event) {
     		angle += speed;
-            sprite.graphics.lt(x += xspeed, y + Math.sin(angle) * range);
+            wave.graphics.lt(x += xspeed,y + Math.sin(angle) * range);
     		stage.update();
     	}
 

@@ -7,53 +7,47 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
+    <script src="js/Circle.js"></script>
+
+    <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
 </head>
 
 <body>
 
-    <canvas id="easel-canvas"></canvas>
+    <canvas id="easel-canvas" width="400" height="300"></canvas>
 
     <script>
     	
-    	var stageWidth = 400, stageHeight = 300,
-    		spriteWidth = 2, spriteColor = '#fff',
-    		x = stageWidth / 2, y = stageHeight / 2,
-    		xangle = 0, yangle = 0; xspeed = 0.07, yspeed = 0.11,
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            bug = new Circle(2);
+
+        // Settings
+    	var x = canvas.width / 2, 
+            y = canvas.height / 2,
+    		xangle = 0, 
+            yangle = 0, 
+            xspeed = 0.07, 
+            yspeed = 0.11,
             range = 100;
 
-    	var canvas = document.getElementById('easel-canvas');
-        canvas.addEventListener('click', handleClick);
-    	
-    	canvas.width = stageWidth;
-    	canvas.height = stageHeight;
+        createjs.Ticker.addEventListener('tick', handleTick);
 
-    	var stage = new createjs.Stage('easel-canvas');
+    	stage.addChild(bug);
 
-    	var sprite = new createjs.Shape();
-
-    	sprite.x = x;
-    	sprite.y = y;
-
-    	sprite.graphics
-    		.s(spriteColor)
-    		.dc(0, 0, spriteWidth);
-
-    	stage.addChild(sprite);
-
-    	createjs.Ticker.addEventListener('tick', handleTick);
+        bug.x = x;
+        bug.y = y;
 
     	function handleTick(event) {
+            // Slightly bug like movement
     		xangle += xspeed;
             yangle += yspeed;
-            sprite.x = x + Math.sin(xangle) * range;
-    		sprite.y = y + Math.sin(yangle) * range;
+            bug.x = x + Math.sin(xangle) * range;
+    		bug.y = y + Math.sin(yangle) * range;
     		stage.update();
     	}
-
-        function handleClick() {
-            xspeed *= -1;
-        }
 
     </script>
 </body>

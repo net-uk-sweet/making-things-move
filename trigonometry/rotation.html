@@ -7,8 +7,7 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
-    <script src="js/Scene.js"></script>
-    <script src="js/SpaceShip.js"></script>
+    <script src="js/Triangle.js"></script>
 
     <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
@@ -16,28 +15,23 @@
 
 <body>
 
-    <canvas id="easel-canvas"></canvas>
+    <canvas id="easel-canvas" width="400" height="300"></canvas>
 
     <script>
-    	
-    	var stageWidth = 400, 
-            stageHeight = 300;
 
-    	var canvas = document.getElementById('easel-canvas');
-        canvas.width = stageWidth;
-        canvas.height = stageHeight;
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            spaceShip = new Triangle();
 
         // How are we supposed to handle mouse move in easel?
         // How do I handle the offsets, should I want one?
     	canvas.addEventListener('mousemove', handleMouseMove);
-    	
-    	var spaceShip = new SpaceShip();
-    	spaceShip.x = stageWidth / 2;
-    	spaceShip.y = stageHeight / 2;
 
-        var scene = new Scene();
-        scene.init();
-        scene.addChild(spaceShip);
+        stage.addChild(spaceShip);
+
+    	spaceShip.x = canvas.width / 2;
+    	spaceShip.y = canvas.height / 2;
 
     	function handleMouseMove(event) {
     		
@@ -47,6 +41,7 @@
                 degrees = radians * 180 / Math.PI;
 
     		spaceShip.rotation = degrees;
+            stage.update();
     	}
 
     </script>

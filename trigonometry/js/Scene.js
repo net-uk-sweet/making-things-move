@@ -4,7 +4,7 @@
 var Scene = function() {
 
 	function handleTick() {
-		this.stage.update();
+		this.update();
 	}
 
 	return {
@@ -13,6 +13,10 @@ var Scene = function() {
 			this.stage = new createjs.Stage('easel-canvas');
 			createjs.Ticker.addEventListener('tick',
 				(callback || handleTick).bind(this));
+		},
+
+		update: function() {
+			this.stage.update();
 		},
 
 		addChild: function(child) {

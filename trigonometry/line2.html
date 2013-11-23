@@ -7,49 +7,53 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
+    <script src="js/Circle.js"></script>
+
     <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
 </head>
 
 <body>
 
-    <canvas id="easel-canvas"></canvas>
+    <canvas id="easel-canvas" width="400" height="300"></canvas>
 
     <script>
-        // 30 fps
-        // 6.283185307179586
-        // 60
-    	var stageWidth = 400, stageHeight = 300,
-    		spriteWidth = 10, spriteColor = '#fff',
-            startx = 0, starty = stageHeight / 2, xspeed = 10,
-    		angle = 0, speed = 0.1, range = 50,
-            waveSpeed = 0.1, startAngle = 0, manx = stageWidth / 2;
 
-    	var canvas = document.getElementById('easel-canvas');
-    	canvas.width = stageWidth;
-    	canvas.height = stageHeight;
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            ball = new Circle(),
+            wave = new createjs.Shape();
 
-    	var stage = new createjs.Stage('easel-canvas');
+        // Settings
+        var startx = 0, 
+            starty = canvas.height / 2, 
+            xspeed = 10,
+    		angle = 0, 
+            speed = 0.1, 
+            range = 50,
+            waveSpeed = 0.1, 
+            startAngle = 0, 
+            ballx = canvas.width / 2;
 
-        var man = new createjs.Shape();
-        man.x = manx;
-        man.graphics.s(spriteColor).dc(0, 0, 10);
+        createjs.Ticker.addEventListener('tick', handleTick);
+        
+        stage.addChild(ball);
+        stage.addChild(wave);
 
-    	var wave = new createjs.Shape();
+        ball.x = ballx;
 
-        stage.addChild(man);
-    	stage.addChild(wave);
-
-    	createjs.Ticker.addEventListener('tick', handleTick);
-        //handleTick();
     	function handleTick(event) {
+
             var x = startx;
-            man.y = getPosition(manx / xspeed * speed);
-            wave.graphics.c().s(spriteColor).mt(startx - 1, starty);
-            while (x < stageWidth + xspeed) {
+            ball.y = getPosition(ballx / xspeed * speed);
+            wave.graphics.c().s('#fff').mt(startx - 1, starty);
+            
+            while (x < canvas.width + xspeed) {
                 wave.graphics.lt(x, getPosition(angle += speed));
                 x += xspeed;
             }
+            
             angle = 0;
             startAngle += waveSpeed;
     		stage.update();
