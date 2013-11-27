@@ -15,7 +15,8 @@
 
 <body>
 
-    <canvas id="easel-canvas" width="400" height="300"></canvas>
+    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="instructions">Try to catch the unconvincing bug</p>
 
     <script>
     	
@@ -31,9 +32,12 @@
             yangle = 0, 
             xspeed = 0.07, 
             yspeed = 0.11,
-            range = 100;
+            range = 100,
+            tolerance = 10,
+            mouse = {};
 
         createjs.Ticker.addEventListener('tick', handleTick);
+        canvas.addEventListener('mousemove', handleMouseMove);
 
     	stage.addChild(bug);
 
@@ -41,16 +45,34 @@
         bug.y = y;
 
     	function handleTick(event) {
-            
-            // Slightly bug like movement
-    		xangle += xspeed;
-            yangle += yspeed;
 
-            bug.x = x + Math.sin(xangle) * range;
-    		bug.y = y + Math.sin(yangle) * range;
+            if (!isCaught(bug)) {
 
-    		stage.update();
+        		xangle += xspeed;
+                yangle += yspeed;
+                
+                bug.x = x + Math.sin(xangle) * range;
+        		bug.y = y + Math.sin(yangle) * range;
+
+        		stage.update();
+            }
     	}
+
+        function handleMouseMove(event) {  
+
+            // Capture cursor position when it changes 
+            mouse.x = event.x;
+            mouse.y = event.y;
+        }
+
+        function isCaught(target) {
+
+            // Fairly naive collision detection using pythagorus
+            var dx = mouse.x - bug.x,
+                dy = mouse.y - bug.y;
+
+            return Math.sqrt(dx * dx + dy * dy) < tolerance;
+        }
 
     </script>
 </body>

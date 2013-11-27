@@ -39,6 +39,7 @@
     	stage.addChild(wave);
 
     	function handleTick(event) {
+            
     		angle += speed;
             wave.graphics.lt(x += xspeed,y + Math.sin(angle) * range);
     		stage.update();

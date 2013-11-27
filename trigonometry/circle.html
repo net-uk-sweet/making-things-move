@@ -23,38 +23,32 @@
         // Actors
         var canvas = document.getElementById('easel-canvas'),
             stage = new createjs.Stage('easel-canvas'),
-            ball = new Circle(),
-            line = new Line();
+            ball = new Circle();
 
         // Settings
     	var x = canvas.width / 2, 
             y = canvas.height / 2,
     		angle = 0, 
             speed = 0.1, 
-            range = 50, 
-            xspeed = 1;
+            radius = 100;
 
         createjs.Ticker.addEventListener('tick', handleTick);
         canvas.addEventListener('click', handleClick);
 
     	stage.addChild(ball);
-    	stage.addChild(line);
 
-        ball.x = line.x = 0;
+        ball.x = x;
         ball.y = y;
 
-        line.y = y + range; // could do w/ offsetting ball radius
-
-        // A not very convincing sine based bounce
     	function handleTick(event) {
     		angle += speed;
-            ball.x += xspeed;
-    		ball.y = y + Math.sin(angle) * range;
+            ball.x = x + Math.cos(angle) * radius;
+    		ball.y = y + Math.sin(angle) * radius;
     		stage.update();
     	}
 
         function handleClick() {
-            xspeed *= -1;
+            speed *= -1;
         }
 
     </script>

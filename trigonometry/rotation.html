@@ -15,7 +15,7 @@
 
 <body>
 
-    <canvas id="easel-canvas" width="400" height="300"></canvas>
+    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
 
     <script>
 
@@ -32,6 +32,8 @@
 
     	spaceShip.x = canvas.width / 2;
     	spaceShip.y = canvas.height / 2;
+
+        stage.update();
 
     	function handleMouseMove(event) {
     		

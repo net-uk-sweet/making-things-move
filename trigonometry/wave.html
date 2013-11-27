@@ -8,7 +8,6 @@
     <![endif]-->
     <script src="js/easeljs-0.7.0.min.js"></script>
     <script src="js/Circle.js"></script>
-    <script src="js/Line.js"></script>
 
     <link rel="stylesheet" href="css/reset.css"></link>
     <link rel="stylesheet" href="css/styles.css"></link>
@@ -16,44 +15,53 @@
 
 <body>
 
-    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <canvas id="easel-canvas" width="400" height="300"></canvas>
 
     <script>
-    	
+
         // Actors
         var canvas = document.getElementById('easel-canvas'),
             stage = new createjs.Stage('easel-canvas'),
             ball = new Circle(),
-            line = new Line();
+            wave = new createjs.Shape();
 
         // Settings
-    	var x = canvas.width / 2, 
-            y = canvas.height / 2,
+        var startx = 0, 
+            starty = canvas.height / 2, 
+            xspeed = 10,
     		angle = 0, 
             speed = 0.1, 
-            range = 50, 
-            xspeed = 1;
+            range = 50,
+            waveSpeed = 0.1, 
+            startAngle = 0, 
+            ballx = canvas.width / 2;
 
         createjs.Ticker.addEventListener('tick', handleTick);
-        canvas.addEventListener('click', handleClick);
+        
+        stage.addChild(ball);
+        stage.addChild(wave);
 
-    	stage.addChild(ball);
-    	stage.addChild(line);
-
-        ball.x = line.x = 0;
-        ball.y = y;
-
-        line.y = y + range; // could do w/ offsetting ball radius
+        ball.x = ballx;
 
     	function handleTick(event) {
-    		angle += speed;
-            ball.x += xspeed;
-    		ball.y = y + Math.sin(angle) * range;
+
+            var x = startx;
+            
+            ball.y = getPosition(ballx / xspeed * speed);
+            wave.graphics.c().s('#fff').mt(startx - 1, starty);
+            
+            while (x < canvas.width + xspeed) {
+                wave.graphics.lt(x, getPosition(angle += speed));
+                x += xspeed;
+            }
+            
+            angle = 0;
+            startAngle += waveSpeed;
     		stage.update();
     	}
 
-        function handleClick() {
-            xspeed *= -1;
+        function getPosition(angle) {
+            return starty + Math.sin(startAngle + angle) * range;
         }
 
     </script>
