@@ -16,6 +16,7 @@
 <body>
 
     <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="info">Move your mouse to rotate the ship</p>
 
     <script>
 
@@ -43,6 +44,7 @@
                 degrees = radians * 180 / Math.PI;
 
     		spaceShip.rotation = degrees;
+            
             stage.update();
     	}
 

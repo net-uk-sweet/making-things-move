@@ -17,6 +17,7 @@
 <body>
 
     <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="info">Click to reverse the direction of the ball</p>
 
     <script>
     	
@@ -42,10 +43,13 @@
         ball.y = y;
 
     	function handleTick(event) {
+            
     		angle += speed;
+
             ball.x = x + Math.cos(angle) * xradius;
     		ball.y = y + Math.sin(angle) * yradius;
-    		stage.update();
+    		
+            stage.update();
     	}
 
         function handleClick() {

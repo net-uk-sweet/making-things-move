@@ -17,6 +17,7 @@
 <body>
 
     <canvas id="easel-canvas" width="400" height="300"></canvas>
+    <p class="info">Perpetual sine-based bobbing</p>
 
     <script>
 
@@ -38,14 +39,16 @@
         stage.addChild(ball);
         stage.addChild(line);
 
-        ball.x = x;
+        ball.x = x - ball.radius;
         ball.y = line.y = y;
 
         line.x = 0;
 
     	function handleTick(event) {
+
     		angle += speed;
     		ball.y = y + Math.sin(angle) * range;
+
     		stage.update();
     	}
 

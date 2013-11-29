@@ -17,6 +17,7 @@
 <body>
 
     <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="info">Click to reverse the direction of the ball</p>
 
     <script>
     	
@@ -43,14 +44,17 @@
         ball.x = line.x = 0;
         ball.y = y;
 
-        line.y = y + range; // could do w/ offsetting ball radius
+        line.y = y + range + ball.radius;
 
         // A not very convincing sine based bounce
     	function handleTick(event) {
-    		angle += speed;
+    		
+            angle += speed;
+            
             ball.x += xspeed;
     		ball.y = y + Math.sin(angle) * range;
-    		stage.update();
+    		
+            stage.update();
     	}
 
         function handleClick() {

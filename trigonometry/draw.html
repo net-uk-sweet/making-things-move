@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 boilerplate – all you really need…</title>
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="js/easeljs-0.7.0.min.js"></script>
+    <script src="js/Circle.js"></script>
+    <script src="js/Line.js"></script>
+
+    <link rel="stylesheet" href="css/reset.css"></link>
+    <link rel="stylesheet" href="css/styles.css"></link>
+</head>
+
+<body>
+
+    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="info">Perpetual sine-based bobbing</p>
+
+    <script>
+
+        // Actors
+        var canvas = document.getElementById('easel-canvas'),
+            stage = new createjs.Stage('easel-canvas'),
+            shape = new createjs.Shape();
+
+        var mouseDown = false;
+
+        // How are we supposed to handle mouse move in easel?
+        // How do I handle the offsets, should I want one?
+        canvas.addEventListener('mousedown', handleMouseDown);
+        canvas.addEventListener('mouseup', handleMouseUp);
+        canvas.addEventListener('mousemove', handleMouseMove);
+        // canvas.addEventListener('click', handleClick);
+        
+        shape.graphics.s('#fff');
+
+        stage.addChild(shape);
+
+        function handleMouseMove(event) {
+            if (mouseDown) {
+                shape.graphics.lt(event.x, event.y);
+                stage.update();
+            }
+        }
+
+        function handleMouseUp() {
+            mouseDown = false;
+        }
+
+    	function handleMouseDown(event) {
+            shape.graphics.mt(event.x, event.y);
+            mouseDown = true;
+    	}
+
+        // function handleClick() {
+        //     shape.graphics.c();
+        // }
+
+    </script>
+</body>
+</html>

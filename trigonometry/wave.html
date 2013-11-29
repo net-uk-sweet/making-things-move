@@ -15,7 +15,8 @@
 
 <body>
 
-    <canvas id="easel-canvas" width="400" height="300"></canvas>
+    <canvas id="easel-canvas" width="400" height="300" class="interactive"></canvas>
+    <p class="info">Click to reverse the direction of the wave</p>
 
     <script>
 
@@ -37,18 +38,22 @@
             ballx = canvas.width / 2;
 
         createjs.Ticker.addEventListener('tick', handleTick);
-        
+        canvas.addEventListener('click', handleClick);
+
         stage.addChild(ball);
         stage.addChild(wave);
 
-        ball.x = ballx;
+        ball.x = ballx - ball.radius;
 
     	function handleTick(event) {
 
             var x = startx;
             
-            ball.y = getPosition(ballx / xspeed * speed);
-            wave.graphics.c().s('#fff').mt(startx - 1, starty);
+            ball.y = getPosition(ballx / xspeed * speed) - ball.radius;
+
+            wave.graphics.c()
+                .s('#fff')
+                .mt(startx - 1, getPosition(angle));
             
             while (x < canvas.width + xspeed) {
                 wave.graphics.lt(x, getPosition(angle += speed));
@@ -57,11 +62,16 @@
             
             angle = 0;
             startAngle += waveSpeed;
+
     		stage.update();
     	}
 
         function getPosition(angle) {
             return starty + Math.sin(startAngle + angle) * range;
+        }
+
+        function handleClick() {
+            waveSpeed *= -1;
         }
 
     </script>
