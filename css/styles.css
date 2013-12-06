@@ -2,8 +2,8 @@ canvas { position: relative; background-color: #000; }
 .interactive { cursor: pointer; }	
 .interactive:hover { background-color: #222; }
 .info {
-	position: relative;
-	top: -20px; 
+	position: absolute;
+	top: 285px; left: 0; 
 	font-family: Courier, monospace; 
 	font-size: 12px;
 	display: inline-block; 
