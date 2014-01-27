@@ -14,7 +14,7 @@ Trigonometry
 	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/circle.html">circle</a></li>
 	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/ellipse.html">ellipse</a></li>
 	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/rotation.html">rotation</a></li>
-	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/rotation.html">sine</a></li>
-	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/rotation.html">wave</a></li>
+	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/sine.html">sine</a></li>
+	<li><a href="https://rawgithub.com/net-uk-sweet/making-things-move/master/trigonometry/wave.html">wave</a></li>
 </ul>
 
